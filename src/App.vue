@@ -1,8 +1,30 @@
+<script setup lang="ts">
+import {
+  NConfigProvider,
+  NDialogProvider,
+  NLoadingBarProvider,
+  NMessageProvider,
+  NNotificationProvider,
+} from 'naive-ui'
+import { useTheme } from './composables/useTheme'
+
+const { theme, themeOverrides } = useTheme()
+</script>
+
 <template>
-  <h1>You did it!</h1>
-  <p>
-    Visit
-    <a href="https://vuejs.org/" target="_blank" rel="noopener">vuejs.org</a> to read the
-    documentation
-  </p>
+  <NConfigProvider
+    :theme="theme"
+    :theme-overrides="themeOverrides"
+  >
+    <NLoadingBarProvider>
+      <NMessageProvider>
+        <NNotificationProvider>
+          <NDialogProvider>
+            <RouterView />
+            <h1>{{ $t('') }}</h1>
+          </NDialogProvider>
+        </NNotificationProvider>
+      </NMessageProvider>
+    </NLoadingBarProvider>
+  </NConfigProvider>
 </template>
