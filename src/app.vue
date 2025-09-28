@@ -6,7 +6,7 @@ import {
   NMessageProvider,
   NNotificationProvider,
 } from 'naive-ui'
-import { useTheme } from './composables/useTheme'
+import { useTheme } from './shared/composables/useTheme'
 
 const { theme, themeOverrides } = useTheme()
 </script>
@@ -21,7 +21,6 @@ const { theme, themeOverrides } = useTheme()
         <NNotificationProvider>
           <NDialogProvider>
             <RouterView />
-            <h1>{{ $t('') }}</h1>
           </NDialogProvider>
         </NNotificationProvider>
       </NMessageProvider>

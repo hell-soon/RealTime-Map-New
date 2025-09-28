@@ -1,18 +1,25 @@
 {
   "extends": "@vue/tsconfig/tsconfig.dom.json",
   "compilerOptions": {
+    "composite": true,
     "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.tsbuildinfo",
+    "baseUrl": ".",
     "paths": {
       "@/*": [
         "./src/*"
       ]
     },
     "types": [
-      "vite/client"
+      "vite/client",
+      "vite",
+      "node",
+      "vue"
     ]
   },
   "include": [
     "src/env.d.ts",
+    "src/types/dts/auto-imports.d.ts",
+    "src/types/dts/components.d.ts",
     "src/**/*",
     "src/**/*.vue"
   ],
