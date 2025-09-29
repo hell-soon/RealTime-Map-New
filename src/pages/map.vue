@@ -18,7 +18,6 @@ function handleMapReady(map: YMap) {
 
 <template>
   <main class="column items-stretch" style="height: calc(100vh - 50px);">
-    <h1>{{ $t('') }}</h1>
     <GeolocationFeedback
       v-if="isLoadingGeolocation || geolocationError"
       :is-loading="isLoadingGeolocation"

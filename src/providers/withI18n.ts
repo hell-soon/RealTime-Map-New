@@ -9,6 +9,7 @@ const i18n = createI18n<
   [MessageSchema],
   MessageLanguages
 >({
+  locale: 'en-US',
   fallbackLocale: 'en-US',
   legacy: false,
   messages,

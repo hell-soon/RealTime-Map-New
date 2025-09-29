@@ -11,5 +11,6 @@ declare module 'vue' {
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     UIcon: typeof import('./../../components/01.kit/UIcon/ui/u-icon.vue')['default']
+    UMarker: typeof import('./../../components/01.kit/UMarker/ui/u-marker.vue')['default']
   }
 }
