@@ -23,6 +23,7 @@
   },
   "dependencies": {
     "@iconify/vue": "^5.0.0",
+    "@vicons/ionicons5": "^0.13.0",
     "axios": "^1.12.2",
     "lint-staged": "^16.2.1",
     "pinia": "^3.0.3",

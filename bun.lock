@@ -5,6 +5,7 @@
       "name": "realtime-map",
       "dependencies": {
         "@iconify/vue": "^5.0.0",
+        "@vicons/ionicons5": "^0.13.0",
         "axios": "^1.12.2",
         "lint-staged": "^16.2.1",
         "pinia": "^3.0.3",
@@ -320,6 +321,8 @@
     "@unocss/eslint-plugin": ["@unocss/eslint-plugin@66.5.2", "", { "dependencies": { "@typescript-eslint/utils": "^8.41.0", "@unocss/config": "66.5.2", "@unocss/core": "66.5.2", "@unocss/rule-utils": "66.5.2", "magic-string": "^0.30.18", "synckit": "^0.11.11" } }, "sha512-e44HkFSWCecAnTU813/+aN7UNpxJHkwM4rUYDBvYi2ZVIPb5UdfH9y+i0M1Vc40qtACDbwKbDecN0DND5EnusA=="],
 
     "@unocss/rule-utils": ["@unocss/rule-utils@66.5.2", "", { "dependencies": { "@unocss/core": "^66.5.2", "magic-string": "^0.30.18" } }, "sha512-2eR5TBTO+cmPY9ahFjyEu8qP/NFPI02dVpI0rgGKdyDMv/PnO9+yS/9rKgrmXsN3nPYHjOrLutRXkF/xxm/t3w=="],
+
+    "@vicons/ionicons5": ["@vicons/ionicons5@0.13.0", "", {}, "sha512-zvZKBPjEXKN7AXNo2Na2uy+nvuv6SP4KAMQxpKL2vfHMj0fSvuw7JZcOPCjQC3e7ayssKnaoFVAhbYcW6v41qQ=="],
 
     "@vitejs/plugin-vue": ["@vitejs/plugin-vue@6.0.1", "", { "dependencies": { "@rolldown/pluginutils": "1.0.0-beta.29" }, "peerDependencies": { "vite": "^5.0.0 || ^6.0.0 || ^7.0.0", "vue": "^3.2.25" } }, "sha512-+MaE752hU0wfPFJEUAIxqw18+20euHHdxVtMvbFcOEpjEyfqXH/5DCoTHiVJ0J29EhTJdoTkjEv5YBKU9dnoTw=="],
 
