@@ -89,11 +89,11 @@ onMounted(async () => {
 </template>
 
 <style lang="scss" scoped>
-$glass-background: rgba(44, 62, 80, 0.6);
-$glass-border: rgba(255, 255, 255, 0.1);
+$glass-background: rgba(255, 255, 255, 0.25);
+$glass-border: rgba(255, 255, 255, 0.18);
 $orb-background: #ffffff;
-$nav-icon-inactive: rgba(255, 255, 255, 0.7);
-$nav-icon-active: #2c3e50;
+$nav-icon-inactive: #555555;
+$nav-icon-active: #000000;
 
 .bottom-nav {
   position: fixed;
@@ -107,12 +107,15 @@ $nav-icon-active: #2c3e50;
   align-items: center;
   padding: 0 10px;
   border-radius: 20px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
 
   background: $glass-background;
   border: 1px solid $glass-border;
-  backdrop-filter: blur(15px);
-  -webkit-backdrop-filter: blur(15px);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+
+  box-shadow:
+    0 8px 32px 0 rgba(31, 38, 135, 0.1),
+    inset 0 0 1px 1px rgba(255, 255, 255, 0.3);
 
   &__list {
     display: flex;
@@ -152,22 +155,8 @@ $nav-icon-active: #2c3e50;
     top: -25px;
     height: 50px;
     width: 50px;
-    background-color: transparent;
     z-index: 0;
     transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
-    border-radius: 50%;
-
-    &::before {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      border-radius: 50%;
-
-      background: $glass-background;
-    }
 
     &-orb {
       position: absolute;
@@ -179,6 +168,7 @@ $nav-icon-active: #2c3e50;
       background-color: $orb-background;
       border-radius: 50%;
       z-index: 2;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     }
   }
 }
