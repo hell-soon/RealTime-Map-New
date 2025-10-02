@@ -10,6 +10,7 @@ import {
   Time,
   TimeOutline,
 } from '@vicons/ionicons5'
+
 import { NIcon } from 'naive-ui'
 
 interface NavItem {
@@ -93,9 +94,9 @@ onMounted(async () => {
 </template>
 
 <style lang="scss" scoped>
-$orb-background: #ffffff;
-$nav-icon-inactive: rgba(43, 35, 35, 0.7);
-$nav-icon-active: #000000;
+$orb-background: var(--orb-background);
+$nav-icon-inactive: var(--nav-icon-inactive);
+$nav-icon-active: var(--nav-icon-active);
 
 .bottom-nav {
   position: fixed;

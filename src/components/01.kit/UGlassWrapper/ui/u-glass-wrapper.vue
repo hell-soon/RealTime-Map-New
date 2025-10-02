@@ -101,7 +101,7 @@ const wrapperStyle = computed(() => ({
   inset: 0;
   z-index: 1;
   border-radius: inherit;
-  background: rgba(255, 255, 255, 0.25);
+  background: var(--glass-background);
 }
 
 .liquid-glass-shine {
@@ -110,8 +110,8 @@ const wrapperStyle = computed(() => ({
   z-index: 2;
   border-radius: inherit;
   box-shadow:
-    inset 1px 1px 1px 0 rgba(255, 255, 255, 0.5),
-    inset -1px -1px 1px 0 rgba(255, 255, 255, 0.5);
+    inset 1px 1px 1px 0 var(--glass-shine),
+    inset -1px -1px 1px 0 var(--glass-shine);
 }
 
 .liquid-glass-content {

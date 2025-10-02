@@ -10,7 +10,7 @@ export default antfu({
       {
         cases: {
           kebabCase: true,
-          pascalCase: true,
+          camelCase: true,
         },
       },
     ],

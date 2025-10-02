@@ -3,7 +3,7 @@ import { darkTheme } from 'naive-ui'
 
 type ThemeName = 'light' | 'dark'
 
-const currentTheme = ref<ThemeName>('light')
+const currentTheme = ref<ThemeName>('dark')
 
 export function useTheme() {
   const theme = computed(() => {
@@ -24,6 +24,29 @@ export function useTheme() {
     }
   })
 
+  const customThemeVars = computed(() => {
+    if (currentTheme.value === 'dark') {
+      return {
+        '--glass-background': 'rgba(40, 40, 40, 0.6)',
+        '--glass-border': 'rgba(255, 255, 255, 0.1)',
+        '--glass-tint': 'rgba(0, 0, 0, 0.2)',
+        '--glass-shine': 'rgba(255, 255, 255, 0.1)',
+        '--orb-background': 'rgba(255, 255, 255, 0.9)',
+        '--nav-icon-inactive': 'rgba(255, 255, 255, 0.6)',
+        '--nav-icon-active': '#000000',
+      }
+    }
+    return {
+      '--glass-background': 'rgba(255, 255, 255, 0.25)',
+      '--glass-border': 'rgba(255, 255, 255, 0.18)',
+      '--glass-tint': 'rgba(255, 255, 255, 0.25)',
+      '--glass-shine': 'rgba(255, 255, 255, 0.5)',
+      '--orb-background': '#ffffff',
+      '--nav-icon-inactive': '#555555',
+      '--nav-icon-active': '#000000',
+    }
+  })
+
   const toggleTheme = () => {
     currentTheme.value = currentTheme.value === 'light' ? 'dark' : 'light'
   }
@@ -33,5 +56,6 @@ export function useTheme() {
     themeOverrides,
     toggleTheme,
     currentTheme,
+    customThemeVars,
   }
 }

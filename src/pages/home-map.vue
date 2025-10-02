@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { YMap } from '@yandex/ymaps3-types'
-import BottomNavigation from '@/components/features/ButtonNavigation/button-navigation.vue'
+import BottomNavigation from '@/components/features/button-navigation/button-navigation.vue'
 import { GeolocationFeedback } from '@/components/features/geolocation'
 import { useGeolocation } from '@/components/features/geolocation/composables/useGeolocation'
 import { BaseMapView } from '@/components/features/map-core'
