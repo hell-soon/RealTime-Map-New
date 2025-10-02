@@ -1,14 +1,12 @@
 <script setup lang="ts">
 import type { Component } from 'vue'
 import {
-  BarChart,
-  BarChartOutline,
-  Home,
-  HomeOutline,
-  Notifications,
-  NotificationsOutline,
-  Time,
-  TimeOutline,
+  Map,
+  MapOutline,
+  Person,
+  PersonOutline,
+  Settings,
+  SettingsOutline,
 } from '@vicons/ionicons5'
 
 import { NIcon } from 'naive-ui'
@@ -20,10 +18,9 @@ interface NavItem {
 }
 
 const navItems = ref<NavItem[]>([
-  { id: 'home', icon: HomeOutline, activeIcon: Home },
-  { id: 'stats', icon: BarChartOutline, activeIcon: BarChart },
-  { id: 'history', icon: TimeOutline, activeIcon: Time },
-  { id: 'notifications', icon: NotificationsOutline, activeIcon: Notifications },
+  { id: 'Person', icon: PersonOutline, activeIcon: Person },
+  { id: 'Map', icon: MapOutline, activeIcon: Map },
+  { id: 'Settings', icon: SettingsOutline, activeIcon: Settings },
 ])
 
 const activeItemId = ref<string>(navItems.value[0].id)
