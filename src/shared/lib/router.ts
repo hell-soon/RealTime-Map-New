@@ -5,7 +5,11 @@ const router = createRouter({
   routes: [
     {
       path: '/',
+      name: 'home-map',
       component: () => import('@/pages/home-map.vue'),
+      meta: {
+        layout: 'default',
+      },
     },
   ],
 })

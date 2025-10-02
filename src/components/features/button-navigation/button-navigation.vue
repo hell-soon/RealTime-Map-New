@@ -50,18 +50,24 @@ function setActiveItem(id: string, index: number) {
   updateIndicatorPosition(index)
 }
 
-onMounted(async () => {
-  await nextTick()
+const isReadyForAnimation = ref(false)
+
+onMounted(() => {
   const initialActiveIndex = navItems.value.findIndex(item => item.id === activeItemId.value)
   if (initialActiveIndex !== -1) {
     updateIndicatorPosition(initialActiveIndex)
   }
+
+  nextTick(() => {
+    isReadyForAnimation.value = true
+  })
 })
 </script>
 
 <template>
   <UGlassWrapper
     :scale="40"
+    :class="{ 'is-visible': isReadyForAnimation }"
     class="bottom-nav"
   >
     <div
@@ -110,6 +116,18 @@ $nav-icon-active: var(--nav-icon-active);
   box-shadow:
     0 6px 6px rgba(0, 0, 0, 0.2),
     0 0 20px rgba(0, 0, 0, 0.1);
+
+  transform: translateX(-50%) translateY(150%);
+  opacity: 0;
+
+  transition:
+    transform 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 0.6s ease-out;
+
+  &.is-visible {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+  }
 }
 
 .bottom-nav__list {
