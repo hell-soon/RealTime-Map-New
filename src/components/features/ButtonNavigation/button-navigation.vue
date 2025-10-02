@@ -100,7 +100,7 @@ onMounted(async () => {
         <feDisplacementMap
           in="SourceGraphic"
           in2="softMap"
-          scale="25"
+          scale="40"
           xChannelSelector="R"
           yChannelSelector="G"
         />
