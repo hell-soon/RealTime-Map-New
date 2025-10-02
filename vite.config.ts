@@ -26,17 +26,10 @@ export default defineConfig({
 
     Components({
       dirs: ['src/components/01.kit'],
+      extensions: ['ts'],
       deep: true,
-      resolvers: [
-        (componentName) => {
-          const path = `src/components/01.kit/${componentName}/index.ts`
-          if (componentName.startsWith('U')) {
-            return { from: path }
-          }
-        },
-      ],
-      include: [/\.vue$/, /\.vue\?vue/],
       dts: 'src/types/dts/components.d.ts',
+      include: [/\.vue$/, /\.vue\?vue/],
     }),
   ],
   resolve: {

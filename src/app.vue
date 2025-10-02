@@ -12,18 +12,18 @@ const { theme, themeOverrides } = useTheme()
 </script>
 
 <template>
-  <NConfigProvider
+  <n-config-provider
     :theme="theme"
     :theme-overrides="themeOverrides"
   >
-    <NLoadingBarProvider>
-      <NMessageProvider>
-        <NNotificationProvider>
-          <NDialogProvider>
+    <n-loading-bar-provider>
+      <n-message-provider>
+        <n-notification-provider>
+          <n-dialog-provider>
             <RouterView />
-          </NDialogProvider>
-        </NNotificationProvider>
-      </NMessageProvider>
-    </NLoadingBarProvider>
-  </NConfigProvider>
+          </n-dialog-provider>
+        </n-notification-provider>
+      </n-message-provider>
+    </n-loading-bar-provider>
+  </n-config-provider>
 </template>

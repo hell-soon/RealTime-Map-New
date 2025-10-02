@@ -59,87 +59,37 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div>
-    <svg style="display: none">
-      <filter id="glass-distortion">
-        <feTurbulence
-          type="fractalNoise"
-          baseFrequency="0.01 0.01"
-          numOctaves="1"
-          seed="5"
-          result="turbulence"
-        />
-        <feGaussianBlur
-          in="turbulence"
-          stdDeviation="3"
-          result="softMap"
-        />
-        <feSpecularLighting
-          in="softMap"
-          surfaceScale="5"
-          specularConstant="1"
-          specularExponent="100"
-          lighting-color="white"
-          result="specLight"
-        >
-          <fePointLight
-            x="-200"
-            y="-200"
-            z="300"
-          />
-        </feSpecularLighting>
-        <feComposite
-          in="specLight"
-          operator="arithmetic"
-          k1="0"
-          k2="1"
-          k3="1"
-          k4="0"
-          result="litImage"
-        />
-        <feDisplacementMap
-          in="SourceGraphic"
-          in2="softMap"
-          scale="40"
-          xChannelSelector="R"
-          yChannelSelector="G"
-        />
-      </filter>
-    </svg>
-
-    <div class="bottom-nav">
-      <div class="liquid-glass-effect" />
-      <div class="liquid-glass-tint" />
-      <div class="liquid-glass-shine" />
-
-      <div
-        class="bottom-nav__indicator"
-        :style="indicatorStyle"
-      >
-        <div class="bottom-nav__indicator-orb" />
-      </div>
-      <ul
-        ref="navList"
-        class="bottom-nav__list"
-      >
-        <li
-          v-for="(item, index) in navItems"
-          :key="item.id"
-          :ref="el => { if (el) itemRefs[index] = el as HTMLLIElement }"
-          class="bottom-nav__item"
-          :class="{ 'bottom-nav__item--active': activeItemId === item.id }"
-          @click="setActiveItem(item.id, index)"
-        >
-          <n-icon
-            size="26"
-            :class="{ 'bottom-nav__item--active__icon': activeItemId === item.id }"
-            :component="activeItemId === item.id ? item.activeIcon : item.icon"
-            class="bottom-nav__icon"
-          />
-        </li>
-      </ul>
+  <UGlassWrapper
+    :scale="40"
+    class="bottom-nav"
+  >
+    <div
+      class="bottom-nav__indicator"
+      :style="indicatorStyle"
+    >
+      <div class="bottom-nav__indicator-orb" />
     </div>
-  </div>
+    <ul
+      ref="navList"
+      class="bottom-nav__list"
+    >
+      <li
+        v-for="(item, index) in navItems"
+        :key="item.id"
+        :ref="el => { if (el) itemRefs[index] = el as HTMLLIElement }"
+        class="bottom-nav__item"
+        :class="{ 'bottom-nav__item--active': activeItemId === item.id }"
+        @click="setActiveItem(item.id, index)"
+      >
+        <n-icon
+          size="26"
+          :class="{ 'bottom-nav__item--active__icon': activeItemId === item.id }"
+          :component="activeItemId === item.id ? item.activeIcon : item.icon"
+          class="bottom-nav__icon"
+        />
+      </li>
+    </ul>
+  </UGlassWrapper>
 </template>
 
 <style lang="scss" scoped>
@@ -159,40 +109,6 @@ $nav-icon-active: #000000;
   box-shadow:
     0 6px 6px rgba(0, 0, 0, 0.2),
     0 0 20px rgba(0, 0, 0, 0.1);
-}
-
-.liquid-glass-effect {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  border-radius: 20px;
-  backdrop-filter: blur(1px);
-  filter: url(#glass-distortion);
-}
-
-.liquid-glass-tint {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  border-radius: 20px;
-  background: rgba(255, 255, 255, 0.25);
-}
-
-.liquid-glass-shine {
-  position: absolute;
-  inset: 0;
-  z-index: 2;
-  border-radius: 20px;
-  box-shadow:
-    inset 1px 1px 1px 0 rgba(255, 255, 255, 0.5),
-    inset -1px -1px 1px 0 rgba(255, 255, 255, 0.5);
-}
-
-.liquid-glass-content {
-  position: relative;
-  z-index: 3;
-  width: 100%;
-  height: 100%;
 }
 
 .bottom-nav__list {

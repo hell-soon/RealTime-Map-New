@@ -1,0 +1,123 @@
+<script setup lang="ts">
+interface Props {
+  scale?: number
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  scale: 40,
+})
+
+let uid = 0
+const getUid = () => uid++
+const filterId = `glass-distortion-${getUid()}`
+
+const wrapperStyle = computed(() => ({
+  '--filter-url': `url(#${filterId})`,
+}))
+</script>
+
+<template>
+  <div
+    class="liquid-glass-wrapper"
+    :style="wrapperStyle"
+  >
+    <svg style="display: none;">
+      <defs>
+        <filter :id="filterId">
+          <feTurbulence
+            type="fractalNoise"
+            baseFrequency="0.01 0.01"
+            numOctaves="1"
+            seed="5"
+            result="turbulence"
+          />
+          <feGaussianBlur
+            in="turbulence"
+            stdDeviation="3"
+            result="softMap"
+          />
+          <feSpecularLighting
+            in="softMap"
+            surfaceScale="5"
+            specularConstant="1"
+            specularExponent="100"
+            lighting-color="white"
+            result="specLight"
+          >
+            <fePointLight
+              x="-200"
+              y="-200"
+              z="300"
+            />
+          </feSpecularLighting>
+          <feComposite
+            in="specLight"
+            operator="arithmetic"
+            k1="0"
+            k2="1"
+            k3="1"
+            k4="0"
+            result="litImage"
+          />
+          <feDisplacementMap
+            in="SourceGraphic"
+            in2="softMap"
+            :scale="props.scale"
+            xChannelSelector="R"
+            yChannelSelector="G"
+          />
+        </filter>
+      </defs>
+    </svg>
+
+    <div class="liquid-glass-effect" />
+    <div class="liquid-glass-tint" />
+    <div class="liquid-glass-shine" />
+    <div class="liquid-glass-content">
+      <slot />
+    </div>
+  </div>
+</template>
+
+<style lang="scss" scoped>
+.liquid-glass-wrapper {
+  position: relative;
+  box-shadow:
+    0 6px 6px rgba(0, 0, 0, 0.2),
+    0 0 20px rgba(0, 0, 0, 0.1);
+}
+
+.liquid-glass-effect {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  border-radius: inherit;
+  backdrop-filter: blur(1px);
+  filter: var(--filter-url);
+}
+
+.liquid-glass-tint {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  border-radius: inherit;
+  background: rgba(255, 255, 255, 0.25);
+}
+
+.liquid-glass-shine {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  border-radius: inherit;
+  box-shadow:
+    inset 1px 1px 1px 0 rgba(255, 255, 255, 0.5),
+    inset -1px -1px 1px 0 rgba(255, 255, 255, 0.5);
+}
+
+.liquid-glass-content {
+  position: relative;
+  z-index: 3;
+  width: 100%;
+  height: 100%;
+}
+</style>

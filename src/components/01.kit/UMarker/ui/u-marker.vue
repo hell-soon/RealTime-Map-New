@@ -49,7 +49,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <YandexMapMarker
+  <yandex-map-marker
     :settings="{
       coordinates: currentCoordinates,
       draggable: props.draggable,
@@ -86,7 +86,7 @@ onMounted(() => {
 
       <div class="marker-pulse" />
     </div>
-  </YandexMapMarker>
+  </yandex-map-marker>
 </template>
 
 <style scoped lang="scss">
