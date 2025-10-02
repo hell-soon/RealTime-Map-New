@@ -59,40 +59,94 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div class="bottom-nav">
-    <div
-      class="bottom-nav__indicator"
-      :style="indicatorStyle"
-    >
-      <div class="bottom-nav__indicator-orb" />
-    </div>
-    <ul
-      ref="navList"
-      class="bottom-nav__list"
-    >
-      <li
-        v-for="(item, index) in navItems"
-        :key="item.id"
-        :ref="el => { if (el) itemRefs[index] = el as HTMLLIElement }"
-        class="bottom-nav__item"
-        :class="{ 'bottom-nav__item--active': activeItemId === item.id }"
-        @click="setActiveItem(item.id, index)"
-      >
-        <n-icon
-          size="26"
-          :component="activeItemId === item.id ? item.activeIcon : item.icon"
-          class="bottom-nav__icon"
+  <div>
+    <svg style="display: none">
+      <filter id="glass-distortion">
+        <feTurbulence
+          type="fractalNoise"
+          baseFrequency="0.01 0.01"
+          numOctaves="1"
+          seed="5"
+          result="turbulence"
         />
-      </li>
-    </ul>
+        <feGaussianBlur
+          in="turbulence"
+          stdDeviation="3"
+          result="softMap"
+        />
+        <feSpecularLighting
+          in="softMap"
+          surfaceScale="5"
+          specularConstant="1"
+          specularExponent="100"
+          lighting-color="white"
+          result="specLight"
+        >
+          <fePointLight
+            x="-200"
+            y="-200"
+            z="300"
+          />
+        </feSpecularLighting>
+        <feComposite
+          in="specLight"
+          operator="arithmetic"
+          k1="0"
+          k2="1"
+          k3="1"
+          k4="0"
+          result="litImage"
+        />
+        <feDisplacementMap
+          in="SourceGraphic"
+          in2="softMap"
+          scale="25"
+          xChannelSelector="R"
+          yChannelSelector="G"
+        />
+      </filter>
+    </svg>
+
+    <div class="bottom-nav">
+      <!-- Слой 1: Искажение фона -->
+      <div class="liquid-glass-effect" />
+      <!-- Слой 2: Легкая тонировка -->
+      <div class="liquid-glass-tint" />
+      <!-- Слой 3: Глянцевые блики по краям -->
+      <div class="liquid-glass-shine" />
+
+      <div
+        class="bottom-nav__indicator"
+        :style="indicatorStyle"
+      >
+        <div class="bottom-nav__indicator-orb" />
+      </div>
+      <ul
+        ref="navList"
+        class="bottom-nav__list"
+      >
+        <li
+          v-for="(item, index) in navItems"
+          :key="item.id"
+          :ref="el => { if (el) itemRefs[index] = el as HTMLLIElement }"
+          class="bottom-nav__item"
+          :class="{ 'bottom-nav__item--active': activeItemId === item.id }"
+          @click="setActiveItem(item.id, index)"
+        >
+          <n-icon
+            size="26"
+            :component="activeItemId === item.id ? item.activeIcon : item.icon"
+            class="bottom-nav__icon"
+          />
+        </li>
+      </ul>
+    </div>
   </div>
 </template>
 
 <style lang="scss" scoped>
-$glass-background: rgba(255, 255, 255, 0.25);
-$glass-border: rgba(255, 255, 255, 0.18);
 $orb-background: #ffffff;
-$nav-icon-inactive: #555555;
+$nav-icon-inactive: rgba(255, 255, 255, 0.7);
 $nav-icon-active: #000000;
 
 .bottom-nav {
@@ -103,73 +157,97 @@ $nav-icon-active: #000000;
   width: 90%;
   max-width: 400px;
   height: 60px;
-  display: flex;
-  align-items: center;
-  padding: 0 10px;
   border-radius: 20px;
-
-  background: $glass-background;
-  border: 1px solid $glass-border;
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-
   box-shadow:
-    0 8px 32px 0 rgba(31, 38, 135, 0.1),
-    inset 0 0 1px 1px rgba(255, 255, 255, 0.3);
+    0 6px 6px rgba(0, 0, 0, 0.2),
+    0 0 20px rgba(0, 0, 0, 0.1);
+}
 
-  &__list {
-    display: flex;
-    justify-content: space-around;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    position: relative;
-    z-index: 1;
-  }
+.liquid-glass-effect {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  border-radius: 20px;
+  backdrop-filter: blur(3px);
+  filter: url(#glass-distortion);
+}
 
-  &__item {
-    cursor: pointer;
-    flex: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
+.liquid-glass-tint {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.25);
+}
 
-  &__icon {
-    color: $nav-icon-inactive;
-    transition:
-      transform 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55),
-      color 0.4s ease;
-    z-index: 3;
-    position: relative;
-  }
+.liquid-glass-shine {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  border-radius: 20px;
+  box-shadow:
+    inset 1px 1px 1px 0 rgba(255, 255, 255, 0.5),
+    inset -1px -1px 1px 0 rgba(255, 255, 255, 0.5);
+}
 
-  &__item--active &__icon {
-    color: $nav-icon-active;
-    transform: translateY(-30px);
-  }
+.liquid-glass-content {
+  position: relative;
+  z-index: 3;
+  width: 100%;
+  height: 100%;
+}
 
-  &__indicator {
-    position: absolute;
-    top: -25px;
-    height: 50px;
-    width: 50px;
-    z-index: 0;
-    transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+.bottom-nav__list {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+}
 
-    &-orb {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 44px;
-      height: 44px;
-      background-color: $orb-background;
-      border-radius: 50%;
-      z-index: 2;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    }
-  }
+.bottom-nav__item {
+  cursor: pointer;
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.bottom-nav__icon {
+  color: $nav-icon-inactive;
+  transition:
+    transform 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55),
+    color 0.4s ease;
+  z-index: 3;
+  position: relative;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.bottom-nav__item--active {
+  color: $nav-icon-active;
+  transform: translateY(-30px);
+}
+
+.bottom-nav__indicator {
+  position: absolute;
+  top: -25px;
+  height: 50px;
+  width: 50px;
+  z-index: 0;
+  transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+}
+
+.bottom-nav__indicator-orb {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 44px;
+  height: 44px;
+  background-color: $orb-background;
+  border-radius: 50%;
+  z-index: 2;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 </style>
