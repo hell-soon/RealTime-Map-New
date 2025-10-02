@@ -108,11 +108,8 @@ onMounted(async () => {
     </svg>
 
     <div class="bottom-nav">
-      <!-- Слой 1: Искажение фона -->
       <div class="liquid-glass-effect" />
-      <!-- Слой 2: Легкая тонировка -->
       <div class="liquid-glass-tint" />
-      <!-- Слой 3: Глянцевые блики по краям -->
       <div class="liquid-glass-shine" />
 
       <div
@@ -135,6 +132,7 @@ onMounted(async () => {
         >
           <n-icon
             size="26"
+            :class="{ 'bottom-nav__item--active__icon': activeItemId === item.id }"
             :component="activeItemId === item.id ? item.activeIcon : item.icon"
             class="bottom-nav__icon"
           />
@@ -146,7 +144,7 @@ onMounted(async () => {
 
 <style lang="scss" scoped>
 $orb-background: #ffffff;
-$nav-icon-inactive: rgba(255, 255, 255, 0.7);
+$nav-icon-inactive: rgba(43, 35, 35, 0.7);
 $nav-icon-active: #000000;
 
 .bottom-nav {
@@ -168,7 +166,7 @@ $nav-icon-active: #000000;
   inset: 0;
   z-index: 0;
   border-radius: 20px;
-  backdrop-filter: blur(3px);
+  backdrop-filter: blur(1px);
   filter: url(#glass-distortion);
 }
 
@@ -224,7 +222,7 @@ $nav-icon-active: #000000;
   text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
 }
 
-.bottom-nav__item--active {
+.bottom-nav__item--active__icon {
   color: $nav-icon-active;
   transform: translateY(-30px);
 }
