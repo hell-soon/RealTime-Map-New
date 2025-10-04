@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import BottomNavigation from '@/components/05.features/button-navigation/button-navigation.vue'
+import BottomNavigation from '@/components/02.features/button-navigation/button-navigation.vue'
 </script>
 
 <template>

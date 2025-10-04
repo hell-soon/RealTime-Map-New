@@ -52,18 +52,7 @@ function onMapZoomChange(event: any) {
 </script>
 
 <template>
-  <div
-    v-if="!centerCoordinates"
-    class="column items-center justify-center text-grey-8"
-  >
-    <q-icon
-      name="map"
-      size="3em"
-    />
-    <p>Ожидание координат для отображения карты...</p>
-  </div>
   <yandex-map
-    v-else
     v-model="mapInstance"
     :settings="{
       location: {

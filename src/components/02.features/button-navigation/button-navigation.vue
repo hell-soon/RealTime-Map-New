@@ -86,7 +86,7 @@ onMounted(() => {
         @click="setActiveItem(item.id, index)"
       >
         <n-icon
-          size="26"
+          size="30"
           :class="{ 'bottom-nav__item--active__icon': activeItemId === item.id }"
           :component="activeItemId === item.id ? item.activeIcon : item.icon"
           class="bottom-nav__icon"
@@ -173,8 +173,8 @@ $nav-icon-active: var(--nav-icon-active);
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 44px;
-  height: 44px;
+  width: 48px;
+  height: 48px;
   background-color: $orb-background;
   border-radius: 50%;
   z-index: 2;
