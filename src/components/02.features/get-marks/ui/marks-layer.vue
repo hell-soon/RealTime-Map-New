@@ -12,12 +12,12 @@ const { marks, fetchMarks } = useMarksSocket()
 const debouncFetchMark = useDebounceFn((coordinat: LngLat) => {
   const [longitude, latitude] = coordinat
   fetchMarks({
-    show_ended: true,
+    show_ended: false,
     longitude,
     latitude,
     radius: 100000,
   })
-}, 30000)
+}, 3000)
 
 watch(
   () => props.coordinates,
@@ -26,6 +26,8 @@ watch(
       debouncFetchMark(newCord)
   },
 )
+
+debouncFetchMark(props.coordinates)
 </script>
 
 <template>

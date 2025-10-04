@@ -27,6 +27,7 @@ export function useTheme() {
   const customThemeVars = computed(() => {
     if (currentTheme.value === 'dark') {
       return {
+        '--primary-color': '#4A90E2',
         '--glass-background': 'rgba(40, 40, 40, 0.6)',
         '--glass-border': 'rgba(255, 255, 255, 0.1)',
         '--glass-tint': 'rgba(0, 0, 0, 0.2)',
@@ -37,6 +38,7 @@ export function useTheme() {
       }
     }
     return {
+      '--primary-color': '#4A90E2',
       '--glass-background': 'rgba(255, 255, 255, 0.25)',
       '--glass-border': 'rgba(255, 255, 255, 0.18)',
       '--glass-tint': 'rgba(255, 255, 255, 0.25)',
