@@ -7,7 +7,7 @@ import {
   NMessageProvider,
   NNotificationProvider,
 } from 'naive-ui'
-import DefaultLayout from '@/layouts/default-layout.vue'
+import DefaultLayout from '@/components/06.layouts/default-layout.vue'
 
 import { useTheme } from './shared/composables/useTheme'
 

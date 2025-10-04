@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import type { YMap } from '@yandex/ymaps3-types'
-import { GeolocationFeedback } from '@/components/features/geolocation'
-import { useGeolocation } from '@/components/features/geolocation/composables/useGeolocation'
-import { BaseMapView } from '@/components/features/map-core'
+import { GeolocationFeedback } from '@/components/05.features/geolocation'
+import { useGeolocation } from '@/components/05.features/geolocation/composables/useGeolocation'
+import { BaseMapView } from '@/components/05.features/map-core'
 
 const {
   userPosition,
