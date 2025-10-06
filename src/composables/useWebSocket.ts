@@ -2,7 +2,6 @@ import type { Socket } from 'socket.io-client'
 import type { DeepReadonly } from 'vue'
 import type { ClientToServerEvents, ServerToClientEvents } from '@/types/socket-events'
 import { io } from 'socket.io-client'
-import { reactive } from 'vue'
 
 interface WebSocketState {
   isConnected: boolean
@@ -63,7 +62,7 @@ export function useWebSocket(): UseWebSocketReturn {
     socket.on('disconnect', (reason) => {
       console.warn(`[WebSocket] Disconnected from "${namespace}": ${reason}`)
       state.isConnected = false
-      sockets.delete(namespace)
+      // sockets.delete(namespace)
     })
 
     socket.on('connect_error', (error) => {

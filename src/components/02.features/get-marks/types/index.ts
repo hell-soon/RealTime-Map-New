@@ -1,4 +1,5 @@
 // import type { User } from 'src/utils/api/user/index.type'
+import type { LngLat } from '@yandex/ymaps3-types'
 
 export interface Mark {
   id: string
@@ -11,7 +12,7 @@ export interface Mark {
   additional_info: string
   geom: {
     type: string
-    coordinates: [number, number]
+    coordinates: LngLat
   }
   photo: string[]
 }

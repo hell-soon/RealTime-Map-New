@@ -48,10 +48,5 @@ function handleMapReady(map: YMap) {
         }"
       /> -->
     </base-map-view>
-    <div
-      v-else-if="!isLoadingGeolocation && !geolocationError && !userPosition"
-    >
-      <p>Не удалось определить местоположение для отображения карты.</p>
-    </div>
   </main>
 </template>

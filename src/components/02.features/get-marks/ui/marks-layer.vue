@@ -9,36 +9,34 @@ const props = defineProps<{
 
 const { marks, fetchMarks } = useMarksSocket()
 
-const debouncFetchMark = useDebounceFn((coordinat: LngLat) => {
-  const [longitude, latitude] = coordinat
+const debounceFetchMark = useDebounceFn((coordinates: LngLat) => {
+  const [longitude, latitude] = coordinates
   fetchMarks({
     show_ended: false,
     longitude,
     latitude,
     radius: 100000,
   })
-}, 3000)
+}, 500)
 
 watch(
   () => props.coordinates,
   (newCord) => {
     if (newCord)
-      debouncFetchMark(newCord)
+      debounceFetchMark(newCord)
   },
 )
-
-debouncFetchMark(props.coordinates)
 </script>
 
 <template>
   <UMarker
     v-for="mark in marks"
     :key="mark.id"
-    :coordinates="mark.geom.coordinates as any"
+    :coordinates="mark.geom.coordinates as LngLat"
     :draggable="false"
     :title="mark.mark_name"
     :media="{
-      photoUrl: mark.photo ? mark.photo[0] : undefined,
+      photoUrl: mark.photo?.[0],
     }"
   />
 </template>
