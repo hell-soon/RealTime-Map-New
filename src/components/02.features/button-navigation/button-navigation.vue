@@ -13,24 +13,35 @@ import {
 } from '@vicons/ionicons5'
 import { NIcon } from 'naive-ui'
 import { nextTick, onMounted, ref, shallowRef, watch } from 'vue'
+import { useDialogStore } from '@/stores/dialog'
+import AppSettings from '../app-settings/app-settings.vue'
 
-interface NavItem {
-  id: string
-  icon: Component
-  activeIcon: Component
-}
-const navItems = ref<NavItem[]>([
-  { id: 'Person', icon: PersonOutline, activeIcon: Person },
-  { id: 'Map', icon: MapOutline, activeIcon: Map },
-  { id: 'Settings', icon: SettingsOutline, activeIcon: Settings },
-])
-const activeItemId = ref<string>(navItems.value[1].id)
+const dialogStore = useDialogStore()
+const activeItemId = defineModel<string>('activeItem', { default: 'Map' })
 
 interface ActionItem {
   id: string
   icon: Component
   action: () => void
 }
+interface NavItem {
+  id: string
+  icon: Component
+  activeIcon: Component
+  action?: () => void
+}
+
+const navItems = ref<NavItem[]>([
+  { id: 'Person', icon: PersonOutline, activeIcon: Person },
+  { id: 'Map', icon: MapOutline, activeIcon: Map },
+  {
+    id: 'Settings',
+    icon: SettingsOutline,
+    activeIcon: Settings,
+    action: () => dialogStore.openDialog(AppSettings, {}, 'Settings'),
+  },
+])
+
 const actionItems = ref<ActionItem[]>([
   // eslint-disable-next-line no-console
   { id: 'add', icon: Add, action: () => console.log('Add clicked') },

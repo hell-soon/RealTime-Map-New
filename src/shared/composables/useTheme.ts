@@ -1,9 +1,18 @@
 import type { GlobalThemeOverrides } from 'naive-ui'
 import { darkTheme } from 'naive-ui'
+import { getCookie, setCookie } from '../lib/cookie'
 
-type ThemeName = 'light' | 'dark'
+export type ThemeName = 'light' | 'dark'
+const COOKIE_NAME = 'app_theme'
 
-const currentTheme = ref<ThemeName>('dark')
+const savedTheme = getCookie(COOKIE_NAME)
+const initialTheme: ThemeName = savedTheme === 'light' || savedTheme === 'dark' ? savedTheme : 'dark'
+
+const currentTheme = ref<ThemeName>(initialTheme)
+
+watch(currentTheme, (newTheme) => {
+  setCookie(COOKIE_NAME, newTheme, 365)
+})
 
 export function useTheme() {
   const theme = computed(() => {
@@ -28,6 +37,7 @@ export function useTheme() {
     if (currentTheme.value === 'dark') {
       return {
         '--primary-color': '#4A90E2',
+        '--bg-color-soft': 'rgba(0, 0, 0, 0.55)',
         '--glass-background': 'rgba(40, 40, 40, 0.6)',
         '--glass-border': 'rgba(255, 255, 255, 0.1)',
         '--glass-tint': 'rgba(0, 0, 0, 0.2)',
@@ -39,6 +49,7 @@ export function useTheme() {
     }
     return {
       '--primary-color': '#4A90E2',
+      '--bg-color-soft': 'rgba(255, 255, 255, 0.55)',
       '--glass-background': 'rgba(255, 255, 255, 0.25)',
       '--glass-border': 'rgba(255, 255, 255, 0.18)',
       '--glass-tint': 'rgba(255, 255, 255, 0.25)',

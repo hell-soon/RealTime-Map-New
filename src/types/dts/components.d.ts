@@ -10,8 +10,11 @@ declare module 'vue' {
   export interface GlobalComponents {
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    UAppPanel: typeof import('./../../components/01.kit/UAppPanel/index.ts')['default']
     UGlassWrapper: typeof import('./../../components/01.kit/UGlassWrapper/index.ts')['default']
     UIcon: typeof import('./../../components/01.kit/UIcon/index.ts')['default']
     UMarker: typeof import('./../../components/01.kit/UMarker/index.ts')['default']
+    UModalWrapper: typeof import('./../../components/01.kit/UModalWrapper/index.ts')['default']
+    UThemeSwitcher: typeof import('./../../components/01.kit/UThemeSwitcher/index.ts')['default']
   }
 }

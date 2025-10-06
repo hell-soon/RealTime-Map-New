@@ -8,17 +8,19 @@ import {
   NNotificationProvider,
 } from 'naive-ui'
 import DefaultLayout from '@/components/03.layouts/default-layout.vue'
+import EmptyLayout from '@/components/03.layouts/empty-layout.vue'
 
 import { useTheme } from './shared/composables/useTheme'
 
 const layouts = {
-  Default: DefaultLayout,
+  empty: EmptyLayout,
+  default: DefaultLayout,
 }
 const route = useRoute()
 
 const layoutComponent = computed(() => {
-  const layoutName = route.meta.layout as keyof typeof layouts
-  return layouts[layoutName] || DefaultLayout
+  const layoutName = route.meta.layout as keyof typeof layouts || 'empty'
+  return layouts[layoutName] || EmptyLayout
 })
 
 const { theme, themeOverrides, customThemeVars } = useTheme()
@@ -35,7 +37,7 @@ const { theme, themeOverrides, customThemeVars } = useTheme()
         <n-notification-provider>
           <n-dialog-provider>
             <component :is="layoutComponent">
-              <RouterView />
+              <router-view />
             </component>
           </n-dialog-provider>
         </n-notification-provider>
