@@ -2,6 +2,7 @@
 import {
   NH3,
   NSelect,
+  NSwitch,
   NThing,
 } from 'naive-ui'
 
@@ -39,6 +40,14 @@ const languageOptions = computed(() =>
           size="small"
           placeholder="Язык"
         />
+      </template>
+    </n-thing>
+    <n-thing>
+      <template #header>
+        {{ $t('settings.glassEffect.title') }}
+      </template>
+      <template #header-extra>
+        <n-switch v-model:value="settingsStore.isGlassEffectEnabled" />
       </template>
     </n-thing>
   </div>

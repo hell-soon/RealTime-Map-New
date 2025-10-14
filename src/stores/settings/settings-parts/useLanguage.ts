@@ -1,6 +1,5 @@
 import type { MessageLanguages } from '@/providers/withI18n'
-import { computed, ref, watch } from 'vue'
-import { useI18n } from 'vue-i18n' // 1. Импортируем useI18n
+import { useI18n } from 'vue-i18n'
 import { getCookie, setCookie } from '@/shared/lib/cookie'
 import messages from '@/shared/lib/i18n'
 

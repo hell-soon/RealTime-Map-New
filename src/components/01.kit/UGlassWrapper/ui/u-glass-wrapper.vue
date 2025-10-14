@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { useSettingsStore } from '@/stores/settings'
+
 interface Props {
   scale?: number
 }
@@ -14,6 +16,8 @@ const filterId = `glass-distortion-${getUid()}`
 const wrapperStyle = computed(() => ({
   '--filter-url': `url(#${filterId})`,
 }))
+
+const settingsStore = useSettingsStore()
 </script>
 
 <template>
@@ -70,9 +74,12 @@ const wrapperStyle = computed(() => ({
       </defs>
     </svg>
 
-    <div class="liquid-glass-effect" />
-    <div class="liquid-glass-tint" />
-    <div class="liquid-glass-shine" />
+    <template v-if="settingsStore.isGlassEffectEnabled">
+      <div class="liquid-glass-effect" />
+      <div class="liquid-glass-tint" />
+      <div class="liquid-glass-shine" />
+    </template>
+
     <div class="liquid-glass-content">
       <slot />
     </div>
