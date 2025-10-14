@@ -8,7 +8,7 @@ import {
   YandexMapListener,
 } from 'vue-yandex-maps'
 
-import { useTheme } from '@/shared/composables/useTheme'
+import { useTheme } from '@/stores/settings/settings-parts/useTheme'
 
 interface Props {
   centerCoordinates: LngLat

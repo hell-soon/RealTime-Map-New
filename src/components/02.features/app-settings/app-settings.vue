@@ -1,26 +1,46 @@
 <script setup lang="ts">
 import {
   NH3,
-  NP,
+  NSelect,
   NThing,
 } from 'naive-ui'
-import { useTheme } from '@/shared/composables/useTheme'
 
-const { currentTheme } = useTheme()
+import { useSettingsStore } from '@/stores/settings'
+
+const settingsStore = useSettingsStore()
+
+const languageOptions = computed(() =>
+  settingsStore.availableLanguages.map(lang => ({
+    label: lang.toUpperCase(),
+    value: lang,
+  })),
+)
 </script>
 
 <template>
   <div class="settings-content">
-    <n-h3>Настройки приложения</n-h3>
+    <n-h3>{{ $t('settings.title') }}</n-h3>
     <n-thing>
       <template #header>
-        Тема оформления
+        {{ $t('settings.theme.title') }}
       </template>
       <template #header-extra>
-        <u-theme-switcher v-model="currentTheme" />
+        <u-theme-switcher v-model="settingsStore.currentTheme" />
       </template>
     </n-thing>
-    <n-p>Здесь будут находиться основные настройки вашего приложения.</n-p>
+    <n-thing>
+      <template #header>
+        {{ $t('settings.language.title') }}
+      </template>
+      <template #header-extra>
+        <n-select
+          v-model:value="settingsStore.currentLang"
+          :options="languageOptions"
+          size="small"
+          placeholder="Язык"
+        />
+      </template>
+    </n-thing>
   </div>
 </template>
 

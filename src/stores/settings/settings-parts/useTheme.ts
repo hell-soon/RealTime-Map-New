@@ -1,21 +1,15 @@
 import type { GlobalThemeOverrides } from 'naive-ui'
 import { darkTheme } from 'naive-ui'
-import { getCookie, setCookie } from '../lib/cookie'
+import { getCookie, setCookie } from '../../../shared/lib/cookie'
 
 export type ThemeName = 'light' | 'dark'
-const COOKIE_NAME = 'app_theme'
-
-const savedTheme = getCookie(COOKIE_NAME)
-const initialTheme: ThemeName
-  = savedTheme === 'light' || savedTheme === 'dark' ? savedTheme : 'dark'
-
-const currentTheme = ref<ThemeName>(initialTheme)
-
-watch(currentTheme, (newTheme) => {
-  setCookie(COOKIE_NAME, newTheme, 365)
-})
+const THEME_COOKIE_NAME = 'app_theme'
 
 export function useTheme() {
+  const savedTheme = getCookie(THEME_COOKIE_NAME)
+  const initialTheme: ThemeName
+    = savedTheme === 'light' || savedTheme === 'dark' ? savedTheme : 'dark'
+  const currentTheme = ref<ThemeName>(initialTheme)
   const theme = computed(() => {
     return currentTheme.value === 'dark' ? darkTheme : null
   })
@@ -64,6 +58,10 @@ export function useTheme() {
   const toggleTheme = () => {
     currentTheme.value = currentTheme.value === 'light' ? 'dark' : 'light'
   }
+
+  watch(currentTheme, (newTheme) => {
+    setCookie(THEME_COOKIE_NAME, newTheme, 365)
+  })
 
   return {
     theme,

@@ -10,7 +10,7 @@ import {
 import DefaultLayout from '@/components/03.layouts/default-layout.vue'
 import EmptyLayout from '@/components/03.layouts/empty-layout.vue'
 
-import { useTheme } from './shared/composables/useTheme'
+import { useSettingsStore } from './stores/settings'
 
 const layouts = {
   empty: EmptyLayout,
@@ -23,14 +23,14 @@ const layoutComponent = computed(() => {
   return layouts[layoutName] || EmptyLayout
 })
 
-const { theme, themeOverrides, customThemeVars } = useTheme()
+const settingsStore = useSettingsStore()
 </script>
 
 <template>
   <n-config-provider
-    :theme="theme"
-    :theme-overrides="themeOverrides"
-    :style="customThemeVars"
+    :theme="settingsStore.theme"
+    :theme-overrides="settingsStore.themeOverrides"
+    :style="settingsStore.customThemeVars"
   >
     <n-loading-bar-provider>
       <n-message-provider>

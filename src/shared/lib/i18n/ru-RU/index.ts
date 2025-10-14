@@ -22,11 +22,17 @@ export default {
     },
   },
 
-  theme: {
-    title: 'Тема',
-    auto: 'Авто',
-    light: 'Светлая',
-    dark: 'Темная',
+  settings: {
+    title: 'Настройки',
+    theme: {
+      title: 'Тема оформления',
+      auto: 'Авто',
+      light: 'Светлая',
+      dark: 'Темная',
+    },
+    language: {
+      title: 'Язык',
+    },
   },
 
   // --- Дополнения для UI компонентов ---

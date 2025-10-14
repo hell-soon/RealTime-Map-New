@@ -22,11 +22,17 @@ export default {
     },
   },
 
-  theme: {
-    title: 'Theme',
-    auto: 'Auto',
-    light: 'Light',
-    dark: 'Dark',
+  settings: {
+    title: 'Settings',
+    theme: {
+      title: 'Theme',
+      auto: 'Auto',
+      light: 'Light',
+      dark: 'Dark',
+    },
+    language: {
+      title: 'Language',
+    },
   },
 
   // --- Additions for UI components ---
