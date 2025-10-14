@@ -6,7 +6,8 @@ export type ThemeName = 'light' | 'dark'
 const COOKIE_NAME = 'app_theme'
 
 const savedTheme = getCookie(COOKIE_NAME)
-const initialTheme: ThemeName = savedTheme === 'light' || savedTheme === 'dark' ? savedTheme : 'dark'
+const initialTheme: ThemeName
+  = savedTheme === 'light' || savedTheme === 'dark' ? savedTheme : 'dark'
 
 const currentTheme = ref<ThemeName>(initialTheme)
 

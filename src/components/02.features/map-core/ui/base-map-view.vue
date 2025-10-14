@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import type { LngLat, YMap } from '@yandex/ymaps3-types'
-
 import {
   YandexMap,
   YandexMapDefaultFeaturesLayer,
@@ -8,6 +7,8 @@ import {
   YandexMapDefaultSchemeLayer,
   YandexMapListener,
 } from 'vue-yandex-maps'
+
+import { useTheme } from '@/shared/composables/useTheme'
 
 interface Props {
   centerCoordinates: LngLat
@@ -49,10 +50,17 @@ function onMapZoomChange(event: any) {
     zoom.value = newZoom
   }
 }
+
+const { currentTheme } = useTheme()
+
+const mapTheme = computed(() => {
+  return currentTheme.value === 'dark' ? 'dark' : 'light'
+})
 </script>
 
 <template>
   <yandex-map
+    :key="mapTheme"
     v-model="mapInstance"
     :settings="{
       location: {
@@ -63,7 +71,9 @@ function onMapZoomChange(event: any) {
         min: 13,
         max: 18,
       },
+      theme: mapTheme,
     }"
+
     width="100%"
     height="100%"
   >
