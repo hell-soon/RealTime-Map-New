@@ -8,7 +8,7 @@ import {
   YandexMapListener,
 } from 'vue-yandex-maps'
 
-import { useTheme } from '@/stores/settings/settings-parts/useTheme'
+import { useSettingsStore } from '@/stores/settings'
 
 interface Props {
   centerCoordinates: LngLat
@@ -51,10 +51,10 @@ function onMapZoomChange(event: any) {
   }
 }
 
-const { currentTheme } = useTheme()
+const settingsStore = useSettingsStore()
 
 const mapTheme = computed(() => {
-  return currentTheme.value === 'dark' ? 'dark' : 'light'
+  return settingsStore.currentTheme === 'dark' ? 'dark' : 'light'
 })
 </script>
 
