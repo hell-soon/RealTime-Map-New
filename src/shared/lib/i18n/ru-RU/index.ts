@@ -33,13 +33,22 @@ export default {
     language: {
       title: 'Язык',
     },
+    glassEffect: {
+      title: 'Режим стекла',
+    },
   },
 
   // --- Дополнения для UI компонентов ---
   form: {
     email: 'Email',
-    password: 'Пароль',
-    username: 'Имя пользователя',
+    password: {
+      title: 'Пароль',
+      error: 'Обязательно поле',
+    },
+    username: {
+      title: 'Имя пользователя',
+      error: 'Обязательно поле',
+    },
     phone: 'Телефон',
   },
 

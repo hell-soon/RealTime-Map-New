@@ -33,13 +33,22 @@ export default {
     language: {
       title: 'Language',
     },
+    glassEffect: {
+      title: 'Glass mode',
+    },
   },
 
   // --- Additions for UI components ---
   form: {
     email: 'Email',
-    password: 'Password',
-    username: 'Username',
+    password: {
+      title: 'Password',
+      error: 'Required field',
+    },
+    username: {
+      title: 'Username',
+      error: 'Required field',
+    },
     phone: 'Phone',
   },
 

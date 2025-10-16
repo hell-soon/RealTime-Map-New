@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import BottomNavigation from '@/components/02.features/button-navigation/button-navigation.vue'
 import AppSettings from '../02.features/app-settings/app-settings.vue'
+import ProfileFormView from '../02.features/profile-form/ui/profile-form-view.vue'
 
 const activeNavItem = ref('Map')
 </script>
@@ -17,6 +18,10 @@ const activeNavItem = ref('Map')
 
     <u-app-panel :show="activeNavItem === 'Settings'">
       <app-settings />
+    </u-app-panel>
+
+    <u-app-panel :show="activeNavItem === 'Person'">
+      <profile-form-view />
     </u-app-panel>
 
     <u-modal-wrapper />

@@ -38,7 +38,6 @@ const languageOptions = computed(() =>
           v-model:value="settingsStore.currentLang"
           :options="languageOptions"
           size="small"
-          placeholder="Язык"
         />
       </template>
     </n-thing>

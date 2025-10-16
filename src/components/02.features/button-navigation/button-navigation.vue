@@ -13,10 +13,7 @@ import {
 } from '@vicons/ionicons5'
 import { NIcon } from 'naive-ui'
 import { nextTick, onMounted, ref, shallowRef, watch } from 'vue'
-import { useDialogStore } from '@/stores/dialog'
-import AppSettings from '../app-settings/app-settings.vue'
 
-const dialogStore = useDialogStore()
 const activeItemId = defineModel<string>('activeItem', { default: 'Map' })
 
 interface ActionItem {
@@ -28,21 +25,19 @@ interface NavItem {
   id: string
   icon: Component
   activeIcon: Component
-  action?: () => void
 }
 
-const navItems = ref<NavItem[]>([
+const navItems: NavItem[] = ([
   { id: 'Person', icon: PersonOutline, activeIcon: Person },
   { id: 'Map', icon: MapOutline, activeIcon: Map },
   {
     id: 'Settings',
     icon: SettingsOutline,
     activeIcon: Settings,
-    action: () => dialogStore.openDialog(AppSettings, {}, 'Settings'),
   },
 ])
 
-const actionItems = ref<ActionItem[]>([
+const actionItems: ActionItem[] = ([
   // eslint-disable-next-line no-console
   { id: 'add', icon: Add, action: () => console.log('Add clicked') },
   // eslint-disable-next-line no-console
@@ -91,7 +86,7 @@ function setActiveItem(id: string, index: number) {
 
 const isReadyForAnimation = ref(false)
 onMounted(() => {
-  const initialActiveIndex = navItems.value.findIndex(item => item.id === activeItemId.value)
+  const initialActiveIndex = navItems.findIndex(item => item.id === activeItemId.value)
   if (initialActiveIndex !== -1)
     updateIndicatorPosition(initialActiveIndex)
 
