@@ -74,11 +74,14 @@ const settingsStore = useSettingsStore()
       </defs>
     </svg>
 
+    <div class="liquid-glass-tint" />
     <template v-if="settingsStore.isGlassEffectEnabled">
       <div class="liquid-glass-effect" />
-      <div class="liquid-glass-tint" />
-      <div class="liquid-glass-shine" />
     </template>
+    <template v-else>
+      <div class="liquid-no-glass" />
+    </template>
+    <div class="liquid-glass-shine" />
 
     <div class="liquid-glass-content">
       <slot />
@@ -101,6 +104,14 @@ const settingsStore = useSettingsStore()
   border-radius: inherit;
   backdrop-filter: blur(1px);
   filter: var(--filter-url);
+}
+
+.liquid-no-glass {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  border-radius: inherit;
+  backdrop-filter: blur(4px);
 }
 
 .liquid-glass-tint {
