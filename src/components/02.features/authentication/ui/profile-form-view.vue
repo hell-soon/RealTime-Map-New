@@ -5,12 +5,13 @@ import {
   NForm,
   NFormItem,
   NInput,
-  useMessage,
 } from 'naive-ui'
 import { useI18n } from 'vue-i18n'
+import { useAuth } from '../models/useAuth'
+
+const { submit } = useAuth()
 
 const formRef = ref<FormInst | null>(null)
-const message = useMessage()
 const formValue = ref({
   username: '',
   password: '',
@@ -31,14 +32,13 @@ const rules = {
   },
 }
 
-function handleValidateClick(e: MouseEvent) {
-  e.preventDefault()
+function handleValidateClick() {
   formRef.value?.validate((errors) => {
-    if (!errors) {
-      message.success('Valid')
+    if (errors) {
+      console.error(errors)
     }
     else {
-      message.error('Invalid')
+      submit('login', formValue.value)
     }
   })
 }
@@ -67,7 +67,6 @@ function handleValidateClick(e: MouseEvent) {
         type="password"
         show-password-on="click"
         :placeholder="t('form.password.title')"
-        :maxlength="8"
       />
     </n-form-item>
     <n-form-item>

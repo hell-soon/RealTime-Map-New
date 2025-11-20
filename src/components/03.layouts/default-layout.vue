@@ -1,6 +1,6 @@
 <script setup lang="ts">
+import ProfileFormView from '@/components/02.features/authentication/ui/profile-form-view.vue'
 import BottomNavigation from '@/components/02.features/button-navigation/button-navigation.vue'
-import { ProfileFormView } from '@/components/02.features/profile-form'
 import AppSettings from '../02.features/app-settings/app-settings.vue'
 
 const activeNavItem = ref('Map')

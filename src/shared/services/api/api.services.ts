@@ -34,7 +34,12 @@ function normalizeError(error: AxiosError): ApiError {
   return apiError
 }
 
-async function request<T>(method: Method, url: string, config: RequestConfig = {}, data?: any): Promise<T> {
+async function request<T>(
+  method: Method,
+  url: string,
+  config: RequestConfig = {},
+  data?: any,
+): Promise<T> {
   try {
     const response = await api.request<T>({
       method,

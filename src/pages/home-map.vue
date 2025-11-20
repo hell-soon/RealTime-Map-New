@@ -32,7 +32,7 @@ function handleMapReady(map: YMap) {
       v-if="!isLoadingGeolocation && !geolocationError && userPosition"
       :center-coordinates="userPosition"
       :zoom-level="15"
-      show-user-marker
+      :show-user-marker="false"
       :user-marker-settings="{ title: 'Мое местоположение', color: 'red' }"
       class="col"
       @map-ready="handleMapReady"
@@ -40,13 +40,13 @@ function handleMapReady(map: YMap) {
       <marks-layer
         :coordinates="userPosition"
       />
-      <!-- <UMarker
-        :coordinates="[24.937335, 60.169953]"
+      <UMarker
+        :coordinates="userPosition"
         :draggable="false"
         :media="{
           photoUrl: 'https://avatars.githubusercontent.com/u/71484693?v=4',
         }"
-      /> -->
+      />
     </base-map-view>
   </main>
 </template>
