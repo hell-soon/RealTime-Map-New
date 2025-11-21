@@ -42,6 +42,7 @@ export default antfu({
           'default',
           'app',
           'error',
+          'README',
         ],
       },
     ],
