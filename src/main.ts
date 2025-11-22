@@ -3,7 +3,7 @@ import { createYmaps } from 'vue-yandex-maps'
 import App from './app.vue'
 import websocketPlugin from './plugins/websocket'
 import { withI18n } from './providers/withI18n'
-import { withNaiveUI } from './providers/withNaiveU.ts'
+import { withNaiveUI } from './providers/withNaiveUi.ts'
 import router from './shared/lib/router.ts'
 import './assets/scss/index.scss'
 

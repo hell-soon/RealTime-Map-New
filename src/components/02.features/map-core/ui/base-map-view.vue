@@ -7,8 +7,7 @@ import {
   YandexMapDefaultSchemeLayer,
   YandexMapListener,
 } from 'vue-yandex-maps'
-
-import { useSettingsStore } from '@/stores/settings'
+import { useSettingsStore } from '../../app-settings/model/settings'
 
 interface Props {
   centerCoordinates: LngLat

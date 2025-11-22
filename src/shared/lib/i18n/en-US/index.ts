@@ -45,6 +45,11 @@ export default {
       title: 'Password',
       error: 'Required field',
     },
+    repeatPassword: {
+      title: 'Repeat password',
+      error: 'Required field',
+      mismatchError: 'Passwords do not match',
+    },
     username: {
       title: 'Username',
       error: 'Required field',

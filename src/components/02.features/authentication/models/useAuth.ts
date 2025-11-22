@@ -1,5 +1,5 @@
-import type { LoginPayload, RegistrationPayload } from '@/stores/auth'
-import { useAuthStore } from '@/stores/auth'
+import type { LoginPayload, RegistrationPayload } from '@/components/02.features/authentication/model/auth'
+import { useAuthStore } from '@/components/02.features/authentication/model/auth'
 
 export function useAuth() {
   const authStore = useAuthStore()

@@ -13,8 +13,10 @@ declare module 'vue' {
     UAppPanel: typeof import('./../../components/01.kit/UAppPanel/index.ts')['default']
     UGlassWrapper: typeof import('./../../components/01.kit/UGlassWrapper/index.ts')['default']
     UIcon: typeof import('./../../components/01.kit/UIcon/index.ts')['default']
+    UInput: typeof import('./../../components/01.kit/UInput/index.ts')['default']
     UMarker: typeof import('./../../components/01.kit/UMarker/index.ts')['default']
     UModalWrapper: typeof import('./../../components/01.kit/UModalWrapper/index.ts')['default']
+    UseInput: typeof import('./../../components/01.kit/UInput/models/useInput.ts')['default']
     UThemeSwitcher: typeof import('./../../components/01.kit/UThemeSwitcher/index.ts')['default']
   }
 }

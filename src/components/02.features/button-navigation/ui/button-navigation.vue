@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import type { Component } from 'vue'
 import {
   Add,
   Close,
@@ -12,7 +11,6 @@ import {
   SettingsOutline,
 } from '@vicons/ionicons5'
 import { NIcon } from 'naive-ui'
-import { nextTick, onMounted, ref, shallowRef, watch } from 'vue'
 
 const activeItemId = defineModel<string>('activeItem', { default: 'Map' })
 

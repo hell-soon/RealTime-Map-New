@@ -1,6 +1,6 @@
 import type { GlobalThemeOverrides } from 'naive-ui'
 import { darkTheme } from 'naive-ui'
-import { getCookie, setCookie } from '../../../shared/lib/cookie'
+import { getCookie, setCookie } from '@/shared/lib/cookie'
 
 export type ThemeName = 'light' | 'dark'
 const THEME_COOKIE_NAME = 'app_theme'
@@ -32,11 +32,14 @@ export function useTheme() {
     if (currentTheme.value === 'dark') {
       return {
         '--primary-color': '#4A90E2',
+        '--text-color': '#fff',
         '--bg-color-soft': 'rgba(0, 0, 0, 0.55)',
+
         '--glass-background': 'rgba(40, 40, 40, 0.6)',
         '--glass-border': 'rgba(255, 255, 255, 0.1)',
         '--glass-tint': 'rgba(0, 0, 0, 0.2)',
         '--glass-shine': 'rgba(255, 255, 255, 0.1)',
+
         '--orb-background': 'rgba(255, 255, 255, 0.9)',
         '--nav-icon-inactive': 'rgba(255, 255, 255, 0.6)',
         '--nav-icon-active': '#000000',
@@ -44,11 +47,14 @@ export function useTheme() {
     }
     return {
       '--primary-color': '#4A90E2',
+      '--text-color': '#000',
       '--bg-color-soft': 'rgba(255, 255, 255, 0.55)',
+
       '--glass-background': 'rgba(255, 255, 255, 0.25)',
       '--glass-border': 'rgba(255, 255, 255, 0.18)',
       '--glass-tint': 'rgba(255, 255, 255, 0.25)',
       '--glass-shine': 'rgba(255, 255, 255, 0.5)',
+
       '--orb-background': '#ffffff',
       '--nav-icon-inactive': '#555555',
       '--nav-icon-active': '#000000',

@@ -2,7 +2,7 @@
 import { Close } from '@vicons/ionicons5'
 import { NIcon } from 'naive-ui'
 import { storeToRefs } from 'pinia'
-import { useDialogStore } from '@/stores/dialog'
+import { useDialogStore } from '@/shared/stores/dialog'
 
 const propsDialog = defineProps({
   width: {

@@ -1,78 +1,127 @@
 <script setup lang="ts">
-import type { FormInst } from 'naive-ui'
 import {
+  NAvatar,
   NButton,
   NForm,
-  NFormItem,
-  NInput,
+  NTabPane,
+  NTabs,
 } from 'naive-ui'
 import { useI18n } from 'vue-i18n'
-import { useAuth } from '../models/useAuth'
+import { useAuthForm } from '../models/useAuthForm'
 
-const { submit } = useAuth()
-
-const formRef = ref<FormInst | null>(null)
-const formValue = ref({
-  username: '',
-  password: '',
-})
+const {
+  formRef,
+  formValue,
+  rules,
+  authMode,
+  submitButtonText,
+  isLoading,
+  handleTabChange,
+  handleValidateClick,
+} = useAuthForm()
 
 const { t } = useI18n()
-
-const rules = {
-  username: {
-    required: true,
-    message: t('form.username.error'),
-    trigger: 'blur',
-  },
-  password: {
-    required: true,
-    message: t('form.password.error'),
-    trigger: 'blur',
-  },
-}
-
-function handleValidateClick() {
-  formRef.value?.validate((errors) => {
-    if (errors) {
-      console.error(errors)
-    }
-    else {
-      submit('login', formValue.value)
-    }
-  })
-}
 </script>
 
 <template>
-  <n-form
-    ref="formRef"
-    :model="formValue"
-    :rules="rules"
-  >
-    <n-form-item
-      path="username"
+  <div class="auth-form-container">
+    <n-avatar
+      :size="60"
+      class="avatar-user"
+      round
+      src="https://avatars.githubusercontent.com/u/83133043?v=4"
+    />
+    <n-tabs
+      :value="authMode"
+      class="auth-tabs"
+      type="segment"
+      animated
+      @update:value="handleTabChange"
     >
-      <n-input
-        v-model:value="formValue.username"
-        :placeholder="t('form.username.title')"
+      <n-tab-pane
+        name="login"
+        :tab="t('auth.login')"
       />
-    </n-form-item>
+      <n-tab-pane
+        name="register"
+        :tab="t('auth.register')"
+      />
+    </n-tabs>
 
-    <n-form-item
-      path="password"
+    <n-form
+      ref="formRef"
+      :model="formValue"
+      :rules="rules"
+      class="auth-form-body"
     >
-      <n-input
-        v-model:value="formValue.password"
-        type="password"
-        show-password-on="click"
-        :placeholder="t('form.password.title')"
+      <u-input
+        v-model="formValue.username"
+        :label="t('form.username.title')"
+        :disable="isLoading"
+        type="text"
       />
-    </n-form-item>
-    <n-form-item>
-      <n-button @click="handleValidateClick">
-        {{ t('buttons.login') }}
+
+      <u-input
+        v-if="authMode === 'register'"
+        v-model="formValue.email"
+        :label="t('form.email')"
+        :disable="isLoading"
+        type="email"
+      />
+
+      <u-input
+        v-model="formValue.password"
+        :label="t('form.password.title')"
+        :disable="isLoading"
+        type="password"
+      />
+
+      <u-input
+        v-if="authMode === 'register'"
+        v-model="formValue.repeatPassword"
+        :label="t('form.repeatPassword.title')"
+        :disable="isLoading"
+        type="password"
+      />
+
+      <n-button
+        type="primary"
+        :loading="isLoading"
+        size="large"
+        @click="handleValidateClick"
+      >
+        {{ submitButtonText }}
       </n-button>
-    </n-form-item>
-  </n-form>
+    </n-form>
+  </div>
 </template>
+
+<style lang="scss" scoped>
+.auth-form-body {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.auth-form-container {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  width: 100%;
+  max-width: 400px;
+
+  .avatar-user {
+    position: absolute;
+    top: -70px;
+    left: 50%;
+    transform: translateX(-50%);
+    box-shadow: 0 0 10px 0 var(--primary-color);
+  }
+}
+
+.auth-tabs {
+  :deep(.n-tabs-rail) {
+    border-radius: 8px;
+  }
+}
+</style>

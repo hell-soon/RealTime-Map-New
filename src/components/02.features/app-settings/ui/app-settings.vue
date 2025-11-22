@@ -5,8 +5,7 @@ import {
   NSwitch,
   NThing,
 } from 'naive-ui'
-
-import { useSettingsStore } from '@/stores/settings'
+import { useSettingsStore } from '../model/settings'
 
 const settingsStore = useSettingsStore()
 

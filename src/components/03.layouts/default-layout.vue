@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import ProfileFormView from '@/components/02.features/authentication/ui/profile-form-view.vue'
-import BottomNavigation from '@/components/02.features/button-navigation/button-navigation.vue'
-import AppSettings from '../02.features/app-settings/app-settings.vue'
+import ProfileFormView from '@/components/02.features/authentication/index'
+import BottomNavigation from '@/components/02.features/button-navigation/index'
+import AppSettings from '../02.features/app-settings/index'
 
 const activeNavItem = ref('Map')
 </script>

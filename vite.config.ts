@@ -29,7 +29,11 @@ export default defineConfig({
       extensions: ['ts'],
       deep: true,
       dts: 'src/types/dts/components.d.ts',
-      include: [/\.vue$/, /\.vue\?vue/],
+      exclude: [
+        /[\\/]node_modules[\\/]/,
+        /[\\/]\.git[\\/]/,
+        /[\\/]models[\\/]/,
+      ],
     }),
   ],
   resolve: {

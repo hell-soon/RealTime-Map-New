@@ -45,6 +45,11 @@ export default {
       title: 'Пароль',
       error: 'Обязательно поле',
     },
+    repeatPassword: {
+      title: 'Повторите пароль',
+      error: 'Обязательно поле',
+      mismatchError: 'Пароли не совпадают',
+    },
     username: {
       title: 'Имя пользователя',
       error: 'Обязательно поле',
