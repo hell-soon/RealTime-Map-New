@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { ThemeName } from '@/stores/settings/settings-parts/useTheme'
+import type { ThemeName } from '@/components/02.features/app-settings/model/settings/settings-parts/useTheme'
 import { MoonOutline, SunnyOutline } from '@vicons/ionicons5'
 import { NIcon } from 'naive-ui'
 
