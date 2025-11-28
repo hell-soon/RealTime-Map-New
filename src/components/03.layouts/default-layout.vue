@@ -1,9 +1,19 @@
 <script setup lang="ts">
-import ProfileFormView from '@/components/02.features/authentication/index'
-import BottomNavigation from '@/components/02.features/button-navigation/index'
-import AppSettings from '../02.features/app-settings/index'
+import GuestView from '@/components/02.features/authentication/'
+import BottomNavigation from '@/components/02.features/button-navigation/'
+import UserView from '@/components/02.features/profile/'
+import AppSettings from '../02.features/app-settings/'
+import { useAuthStore } from '../02.features/authentication/model/auth'
 
 const activeNavItem = ref('Map')
+
+const authStore = useAuthStore()
+const { isAuthenticated } = storeToRefs(authStore)
+const { initAuth } = authStore
+
+onMounted(() => {
+  initAuth()
+})
 </script>
 
 <template>
@@ -21,7 +31,14 @@ const activeNavItem = ref('Map')
     </u-app-panel>
 
     <u-app-panel :show="activeNavItem === 'Person'">
-      <profile-form-view />
+      <Transition
+        name="fade"
+        mode="out-in"
+      >
+        <component
+          :is="isAuthenticated ? UserView : GuestView"
+        />
+      </Transition>
     </u-app-panel>
 
     <u-modal-wrapper />

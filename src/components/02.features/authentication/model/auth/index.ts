@@ -1,25 +1,28 @@
 import type { LoginPayload, RegistrationPayload } from '@/utils/auth/index.type'
 import type { User } from '@/utils/user/index.type'
 import { defineStore } from 'pinia'
+import { getCookie, setCookie } from '@/shared/lib/cookie'
 import { authApi } from '@/utils/auth'
 import { userApi } from '@/utils/user'
 
 interface AuthState {
   user: User | null
-  isAuthenticated: boolean
   token: string | null
 }
 
 export const useAuthStore = defineStore('auth', {
   state: (): AuthState => ({
     user: null,
-    isAuthenticated: false,
-    token: localStorage.getItem('token') || null,
+    token: (typeof document !== 'undefined') ? getCookie('token') : null,
   }),
+
+  getters: {
+    isAuthenticated: state => !!state.token,
+  },
 
   actions: {
     setToken(token: string) {
-      localStorage.setItem('token', token)
+      setCookie('token', token, 7)
       this.token = token
       api.defaults.headers.common.Authorization = `Bearer ${token}`
     },
@@ -30,14 +33,13 @@ export const useAuthStore = defineStore('auth', {
       return this.token
     },
     removeToken() {
-      localStorage.removeItem('token')
+      setCookie('token', '', -1)
       this.token = null
       delete api.defaults.headers.common.Authorization
     },
 
     setUser(userData: User | null) {
       this.user = userData
-      this.isAuthenticated = !!userData
     },
 
     async login(payload: LoginPayload) {
@@ -52,7 +54,9 @@ export const useAuthStore = defineStore('auth', {
 
     async fetchUser() {
       try {
-        const user = await userApi.getProfile()
+        const user = await userApi.getProfile({
+          include: ['bans', 'gamefication', 'subscription'],
+        })
         this.setUser(user)
       }
       catch (error) {
@@ -71,6 +75,15 @@ export const useAuthStore = defineStore('auth', {
       finally {
         this.setUser(null)
         this.removeToken()
+      }
+    },
+
+    initAuth() {
+      const cookieToken = (typeof document !== 'undefined') ? getCookie('token') : null
+      if (cookieToken) {
+        this.token = cookieToken
+        api.defaults.headers.common.Authorization = `Bearer ${cookieToken}`
+        this.fetchUser()
       }
     },
   },
