@@ -92,7 +92,7 @@ const progressPercentage = computed(() => {
 
   .xp-numbers {
     font-weight: 500;
-    color: #333;
+    color: var(--color-text);
   }
 
   .xp-left {

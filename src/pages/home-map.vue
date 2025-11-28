@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { YMap } from '@yandex/ymaps3-types'
+import { useAuthStore } from '@/components/02.features/authentication/model/auth'
 import { GeolocationFeedback } from '@/components/02.features/geolocation'
 import { useGeolocation } from '@/components/02.features/geolocation/composables/useGeolocation'
 import MarksLayer from '@/components/02.features/get-marks/ui/marks-layer.vue'
@@ -15,6 +16,9 @@ const mapApi = shallowRef<null | YMap>(null)
 function handleMapReady(map: YMap) {
   mapApi.value = map
 }
+
+const authStore = useAuthStore()
+const { user } = storeToRefs(authStore)
 </script>
 
 <template>
@@ -44,7 +48,7 @@ function handleMapReady(map: YMap) {
         :coordinates="userPosition"
         :draggable="false"
         :media="{
-          photoUrl: 'https://avatars.githubusercontent.com/u/71484693?v=4',
+          photoUrl: user?.avatar || '',
         }"
       />
     </base-map-view>
