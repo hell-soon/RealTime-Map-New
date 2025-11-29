@@ -53,7 +53,7 @@ interface UserGemefication {
   exp_for_level_up: number
 }
 
-export type UserIncludeType = 'bans' | 'gamefication' | 'subscription'
+export type UserIncludeType = 'ban' | 'gamefication' | 'subscription'
 
 export interface GetProfileParams {
   include?: UserIncludeType[]

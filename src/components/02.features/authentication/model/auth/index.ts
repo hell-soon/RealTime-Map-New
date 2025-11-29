@@ -55,7 +55,7 @@ export const useAuthStore = defineStore('auth', {
     async fetchUser() {
       try {
         const user = await userApi.getProfile({
-          include: ['bans', 'gamefication', 'subscription'],
+          include: ['ban', 'gamefication', 'subscription'],
         })
         this.setUser(user)
       }
