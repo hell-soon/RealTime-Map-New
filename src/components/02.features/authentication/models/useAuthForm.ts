@@ -4,6 +4,14 @@ import { useAuth } from './useAuth'
 
 export type AuthMode = 'login' | 'register'
 
+interface AuthFormErrors {
+  username?: string
+  email?: string
+  password?: string
+  repeatPassword?: string
+  general?: string
+}
+
 export function useAuthForm() {
   const { t } = useI18n()
   const { submit, isLoading } = useAuth()
@@ -18,6 +26,8 @@ export function useAuthForm() {
     password: '',
     repeatPassword: '',
   })
+
+  const formErrors = ref<AuthFormErrors>({})
 
   const rules = computed<FormRules>(() => {
     const baseRules = {
@@ -73,6 +83,70 @@ export function useAuthForm() {
     authMode.value === 'login' ? t('buttons.login') : t('buttons.createAccount'),
   )
 
+  const clearErrors = (field?: keyof AuthFormErrors) => {
+    if (field) {
+      delete formErrors.value[field]
+    }
+    else {
+      formErrors.value = {}
+    }
+  }
+
+  const setBackendErrors = (errors: AuthFormErrors) => {
+    formErrors.value = { ...formErrors.value, ...errors }
+  }
+
+  const handleBackendError = (error: any) => {
+    if (!error) {
+      formErrors.value.general = t('errors.unknown')
+      return
+    }
+
+    if (error.response?.data) {
+      const errorData = error.response.data
+
+      if (typeof errorData === 'object') {
+        const backendErrors: AuthFormErrors = {}
+
+        Object.keys(errorData).forEach((key) => {
+          if (key === 'username' || key === 'email' || key === 'password') {
+            backendErrors[key] = errorData[key]
+          }
+          else if (key === 'message' || key === 'detail') {
+            backendErrors.general = errorData[key]
+          }
+        })
+
+        setBackendErrors(backendErrors)
+      }
+      else if (typeof errorData === 'string') {
+        formErrors.value.general = errorData
+      }
+    }
+    else if (error.message) {
+      if (error.message.includes('Network Error') || error.message.includes('timeout')) {
+        formErrors.value.general = t('errors.network')
+      }
+      else {
+        formErrors.value.general = error.message
+      }
+    }
+    else {
+      formErrors.value.general = t('errors.unknown')
+    }
+
+    nextTick(() => {
+      const firstErrorElement = document.querySelector('.has-error')
+      if (firstErrorElement) {
+        firstErrorElement.scrollIntoView({ behavior: 'smooth', block: 'center' })
+      }
+    })
+  }
+
+  watch([() => formValue.value.username, () => formValue.value.email, () => formValue.value.password], () => {
+    clearErrors('general')
+  })
+
   const handleTabChange = (value: string) => {
     authMode.value = value as AuthMode
     formValue.value = {
@@ -81,11 +155,13 @@ export function useAuthForm() {
       password: '',
       repeatPassword: '',
     }
+    formErrors.value = {}
     formRef.value?.restoreValidation()
   }
 
   const handleValidateClick = (e: MouseEvent) => {
     e.preventDefault()
+    clearErrors()
 
     formRef.value?.validate((errors) => {
       if (!errors) {
@@ -96,6 +172,9 @@ export function useAuthForm() {
         }
 
         submit(authMode.value, payload)
+          .catch((error) => {
+            handleBackendError(error)
+          })
       }
       else {
         console.error(errors)
@@ -110,7 +189,9 @@ export function useAuthForm() {
     authMode,
     submitButtonText,
     isLoading,
+    formErrors,
     handleTabChange,
     handleValidateClick,
+    clearErrors,
   }
 }

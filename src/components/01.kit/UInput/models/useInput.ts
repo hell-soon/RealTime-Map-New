@@ -1,9 +1,11 @@
-import { computed, ref, useAttrs } from 'vue'
-
 export interface UInputProps {
   modelValue: string | number | null
   label?: string
   type?: 'text' | 'password' | 'email' | 'tel'
+  error?: boolean
+  errorMessage?: string
+  loading?: boolean
+  disabled?: boolean
 }
 
 export function useInput(
@@ -19,14 +21,18 @@ export function useInput(
   const value = computed({
     get: () => props.modelValue,
     set: (val) => {
-      emit('update:modelValue', val)
+      if (!props.disabled && !props.loading) {
+        emit('update:modelValue', val)
+      }
     },
   })
 
   const isPasswordVisible = ref(false)
 
   const togglePasswordVisibility = () => {
-    isPasswordVisible.value = !isPasswordVisible.value
+    if (!props.disabled && !props.loading) {
+      isPasswordVisible.value = !isPasswordVisible.value
+    }
   }
 
   const inputType = computed(() => {
@@ -40,6 +46,10 @@ export function useInput(
 
   const isFilled = computed(() => !!props.modelValue)
 
+  const hasError = computed(() => props.error || !!props.errorMessage)
+
+  const isDisabled = computed(() => props.disabled || props.loading)
+
   return {
     attrs,
     inputId,
@@ -49,5 +59,7 @@ export function useInput(
     isPasswordVisible,
     showPasswordToggle,
     togglePasswordVisibility,
+    hasError,
+    isDisabled,
   }
 }

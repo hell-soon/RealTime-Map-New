@@ -16,8 +16,10 @@ const {
   authMode,
   submitButtonText,
   isLoading,
+  formErrors,
   handleTabChange,
   handleValidateClick,
+  clearErrors,
 } = useAuthForm()
 
 const { t } = useI18n()
@@ -54,34 +56,53 @@ const { t } = useI18n()
       :rules="rules"
       class="auth-form-body"
     >
+      <div
+        v-if="formErrors.general"
+        class="error-message general-error"
+        role="alert"
+      >
+        {{ formErrors.general }}
+      </div>
       <u-input
         v-model="formValue.username"
         :label="t('form.username.title')"
-        :disable="isLoading"
+        :disabled="isLoading"
+        :loading="isLoading"
+        :error="!!formErrors.username"
         type="text"
+        @input="clearErrors('username')"
       />
 
       <u-input
         v-if="authMode === 'register'"
         v-model="formValue.email"
         :label="t('form.email')"
-        :disable="isLoading"
+        :disabled="isLoading"
+        :loading="isLoading"
+        :error="!!formErrors.email"
         type="email"
+        @input="clearErrors('email')"
       />
 
       <u-input
         v-model="formValue.password"
         :label="t('form.password.title')"
-        :disable="isLoading"
+        :loading="isLoading"
+        :disabled="isLoading"
+        :error="!!formErrors.password"
         type="password"
+        @input="clearErrors('password')"
       />
 
       <u-input
         v-if="authMode === 'register'"
         v-model="formValue.repeatPassword"
         :label="t('form.repeatPassword.title')"
-        :disable="isLoading"
+        :loading="isLoading"
+        :disabled="isLoading"
+        :error="!!formErrors.repeatPassword"
         type="password"
+        @input="clearErrors('repeatPassword')"
       />
 
       <n-button
